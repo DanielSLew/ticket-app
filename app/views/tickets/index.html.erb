@@ -1,0 +1,19 @@
+<h1>Tickets</h1>
+
+<div class="ticket_filters">
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Assignee</th>
+      <th>Status</th>
+      <th>Tags</th>
+  </thead>
+  <tbody>
+    <%= render @tickets %>
+  </tbody>
+</table>
+
+<%= link_to 'New Ticket', new_ticket_path %>

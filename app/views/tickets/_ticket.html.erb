@@ -1,0 +1,12 @@
+<tr>
+  <td>
+    <%= link_to ticket.name, ticket_path(ticket) %>
+  </td>
+  <td></td>
+  <td><%= ticket.status %></td>
+  <td><%= ticket.list_tags %></td>
+  <td>
+    <%= link_to 'Edit', edit_ticket_path(ticket) %>
+    <%= link_to 'Delete', ticket_path(ticket), method: 'delete' %>
+  </td>
+</tr>

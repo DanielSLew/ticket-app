@@ -1,0 +1,22 @@
+<%= render 'tickets/header', ticket: @ticket %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Status</th>
+      <th>Creator</th>
+      <th>Assignee</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td><%= @ticket.status %></td>
+      <td>Creator</td>
+      <td>-</td>
+  </tbody>
+</table>
+
+<h2>Comments</h2>
+
+List all comments here

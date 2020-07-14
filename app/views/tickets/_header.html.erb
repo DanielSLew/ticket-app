@@ -1,0 +1,8 @@
+<h1><%= ticket.name %></h1>
+
+<p><%= ticket.body %></p>
+
+<p><strong>Tags: </strong><%= ticket.list_tags %></p>
+<p>
+  <%= link_to 'Edit', edit_ticket_path(ticket) %>
+</p>

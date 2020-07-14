@@ -1,0 +1,17 @@
+<h2>Projects</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Open Tickets</th>
+      <th>Total Tickets</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <%= render @projects %>
+  </tbody>
+</table>
+
+<%= link_to 'New Project', new_project_path %>

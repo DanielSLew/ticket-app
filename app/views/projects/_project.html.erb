@@ -1,0 +1,12 @@
+<tr>
+  <td>
+    <strong>
+      <%= link_to project.name, project_path(project) %>
+    </strong>
+    <br/>
+    <%= project.description %>
+
+  </td>
+  <td class="number"><%= project.total_tickets %></td>
+  <td class="number"><%= project.open_tickets %></td>
+</tr>
