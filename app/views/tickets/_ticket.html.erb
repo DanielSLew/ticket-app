@@ -2,7 +2,7 @@
   <td>
     <%= link_to ticket.name, ticket_path(ticket) %>
   </td>
-  <td></td>
+  <td><%= ticket.assignee.username if ticket.assignee %></td>
   <td><%= ticket.status %></td>
   <td><%= ticket.list_tags %></td>
   <td>

@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_14_003123) do
+ActiveRecord::Schema.define(version: 2020_07_14_163154) do
+
+  create_table "comments", force: :cascade do |t|
+    t.integer "ticket_id"
+    t.integer "user_id"
+    t.text "body"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["ticket_id"], name: "index_comments_on_ticket_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
 
   create_table "projects", force: :cascade do |t|
     t.string "name"
@@ -39,6 +49,9 @@ ActiveRecord::Schema.define(version: 2020_07_14_003123) do
     t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id"
+    t.integer "assignee_id"
+    t.index ["assignee_id"], name: "index_tickets_on_assignee_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -49,4 +62,8 @@ ActiveRecord::Schema.define(version: 2020_07_14_003123) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "comments", "tickets"
+  add_foreign_key "comments", "users"
+  add_foreign_key "tickets", "users"
+  add_foreign_key "tickets", "users", column: "assignee_id"
 end

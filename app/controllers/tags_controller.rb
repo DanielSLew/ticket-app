@@ -1,4 +1,5 @@
 class TagsController < ApplicationController
+  before_action :require_user, except: [:index]
   before_action :find_tag, only: [:edit, :update, :destroy]
 
   def index
@@ -13,7 +14,7 @@ class TagsController < ApplicationController
     @tag = Tag.new(params.require(:tag).permit(:name))
 
     if @tag.save
-      redirect_to tags_path, notice: 'Tag was successfully created.'
+      tag_successfully(:created)
     else
       render :new
     end
@@ -24,20 +25,24 @@ class TagsController < ApplicationController
 
   def update
     if @tag.save
-      redirect_to tags_path, notice: 'Tag was successfully updated.'
+      tag_successfully(:updated)
     else
-      render :new
+      render :edit
     end
   end
 
   def destroy
     @tag.destroy
-    redirect_to tags_path, notice: 'Tag was successfully deleted.'
+    tag_successfully(:destroyed)
   end
 
   private
 
   def find_tag
     @tag = Tag.find(params[:id])
+  end
+
+  def tag_successfully(action, path=tags_path)
+    redirect_to path, notice: "Tag was successfully #{action}."
   end
 end

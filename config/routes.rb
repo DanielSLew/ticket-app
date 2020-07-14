@@ -7,7 +7,9 @@ Rails.application.routes.draw do
   post '/login',    to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
 
-  resources :tickets
+  resources :tickets do
+    resources :comments, only: [:create, :edit, :update, :destroy]
+  end
   resources :projects
   resources :tags, except: [:show]
 end

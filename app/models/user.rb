@@ -1,7 +1,8 @@
 class User < ApplicationRecord
   # has_many :projects
-  # has_many :tickets
-  
+  has_many :tickets
+  has_many :comments
+
   has_secure_password
 
   validates :username, length: {minimum: 2}, uniqueness: true

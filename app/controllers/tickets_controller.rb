@@ -1,11 +1,13 @@
 class TicketsController < ApplicationController
+  before_action :require_user, except: [:index, :show]
   before_action :find_ticket, only: [:show, :edit, :update, :destroy]
-  
+
   def index
     @tickets = Ticket.all
   end
 
   def show
+    @comment = Comment.new
   end
 
   def new
@@ -15,11 +17,11 @@ class TicketsController < ApplicationController
 
   def create
     @ticket = Ticket.new(ticket_params)
+    @ticket.creator = current_user
 
-    if @ticket.save
-      flash[:notice] = 'Ticket was successfully created.'
-      redirect_to ticket_path(@ticket)
-    else
+    if @ticket.save 
+      ticket_successfully(:created)
+    else 
       render :new
     end
   end
@@ -29,27 +31,28 @@ class TicketsController < ApplicationController
 
   def update
     if @ticket.update(ticket_params)
-      flash[:notice] = 'Ticket was successfully updated.'
-      redirect_to ticket_path(@ticket)
+      ticket_successfully(:updated)
     else
       render :edit
-    end    
+    end
   end
 
   def destroy
     @ticket.destroy
-    flash[:notice] = "Ticket was successfully destroyed."
-
-    redirect_to tickets_path
+    ticket_successfully(:destroyed, tickets_path)
   end
 
   private
 
   def ticket_params
-    params.require(:ticket).permit(:name, :body, :status, :project_id, tag_ids: [])
+    params.require(:ticket).permit(:name, :body, :status, :project_id, :assignee_id, tag_ids: [])
   end
 
   def find_ticket
     @ticket = Ticket.find(params[:id])
+  end
+
+  def ticket_successfully(action, path=ticket_path(@ticket))
+    redirect_to path, notice: "Ticket was successfully #{action}."
   end
 end

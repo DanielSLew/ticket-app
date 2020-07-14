@@ -13,10 +13,14 @@
     <tr>
       <td><%= @ticket.status %></td>
       <td>Creator</td>
-      <td>-</td>
+      <td><%= @ticket.assignee.username if @ticket.assignee %></td>
   </tbody>
 </table>
 
 <h2>Comments</h2>
 
-List all comments here
+<%= render @ticket.comments %>
+
+<% if logged_in? %>
+  <%= render 'comments/form' %>
+<% end %>
