@@ -1,6 +1,6 @@
 <tr>
   <td><%= tag.name %></td>
-  <td class="number"><%= tag.tickets.size %></td>
+  <td class="number"><%= link_to tag.ticket_tags.count, tickets_path(tag: tag.id) %></td>
   <td>
     <%= link_to 'Edit', edit_tag_path(tag) %> or 
     <%= link_to 'Delete', tag_path(tag), method: :delete, data: {confirm: 'Are you sure?'} %>

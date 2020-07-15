@@ -3,7 +3,7 @@ class TagsController < ApplicationController
   before_action :find_tag, only: [:edit, :update, :destroy]
 
   def index
-    @tags = Tag.all
+    @tags = Tag.with_counts.alphabetical
   end
 
   def new

@@ -1,5 +1,12 @@
 <h1>Tags</h1>
 
+<% if @tags.empty? %>
+  <p class="empty-list">
+    There are no tags
+    <%= link_to "Add one now?", new_tag_path %>
+  </p>
+<% end %>
+
 <table>
   <thead>
     <tr>

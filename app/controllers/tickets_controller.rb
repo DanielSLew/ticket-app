@@ -3,7 +3,14 @@ class TicketsController < ApplicationController
   before_action :find_ticket, only: [:show, :edit, :update, :destroy]
 
   def index
-    @tickets = Ticket.all
+    @tickets = if params[:project].present?
+                  Project.find(params[:project]).tickets
+                else
+                  Ticket.all
+                end
+
+    @tickets = @tickets.where(status: params[:status]) if params[:status].present?
+    @tickets = @tickets.joins(:tags).where("tags.id": params[:tag]) if params[:tag].present?
   end
 
   def show
@@ -11,13 +18,11 @@ class TicketsController < ApplicationController
   end
 
   def new
-    @projects = Project.all
     @ticket = Ticket.new
   end
 
   def create
-    @ticket = Ticket.new(ticket_params)
-    @ticket.creator = current_user
+    @ticket = Ticket.new(ticket_params.merge(creator: current_user))
 
     if @ticket.save 
       ticket_successfully(:created)
