@@ -18,7 +18,7 @@
 
   <div class="field">
     <%= f.label :status %>
-    <%= f.select :status, ['new', 'blocked', 'in_progress', 'fixed'] %>
+    <%= f.select :status, Ticket::STATUS %>
   </div>
 
   <div class="field">
